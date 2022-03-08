@@ -1,27 +1,30 @@
-void setup() {
-
-  String num_users[] =  {"+33625458785", "0665541285", "0778451236", "06.07.02.55.25", "06 75 42 13 54"};
-  //num_users = format_number(num_users);
-  //print(num_users);
-  format_number(num_users);
+void setup() { //<>//
+  String usersPhoneNumbers[] = {"+336 25 45 87 85", "0665541285", "0778451236", "+336.07.02.55.25", "06 75 42 13 54"};
+  formatPhoneNumbers(usersPhoneNumbers);
 }
 
-String[] format_number(String[] numbers) {
-  // boucle sur tous les numéros
+String[] formatPhoneNumbers(String[] numbers) {
   for (int counter = 0; counter < numbers.length; counter++) {
-    String good_number = "";
-    // boucle sur tous les charactères
-    for (int i = 0; i < numbers[counter].length(); i ++) {
-      if (numbers[counter].charAt(i) != '.' && numbers[counter].charAt(i) != ' ') {
-        //Ajouter char a good numbers;
-        good_number = good_number + numbers[counter].charAt(i);
-      }
-      // Vérifier si premier numéro == 0 / Si premier numéro == +33
-      if(numbers[counter].charAt(0) == '0'){
-      }
+    String number = numbers[counter];
+    String formattedPhoneNumber = formatNumber(number);
+
+    if (number.charAt(0) == '0') {
+      formattedPhoneNumber = "+33" + formattedPhoneNumber.substring(1);
     }
-    println(good_number);
+    println(formattedPhoneNumber);
   }
 
   return numbers;
+}
+
+String formatNumber(String number) {
+  String formattedPhoneNumber = "";
+
+  for (int i = 0; i < number.length(); i ++) {
+    if (number.charAt(i) != '.' && number.charAt(i) != ' ') {
+      formattedPhoneNumber = formattedPhoneNumber + number.charAt(i);
+    }
+  }
+
+  return formattedPhoneNumber;
 }

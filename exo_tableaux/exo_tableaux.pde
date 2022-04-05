@@ -1,23 +1,16 @@
 void setup() {
-  //int[] array1D = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-  //int[][] Array2D = { {1, 2, 3, 4, 5}, {6, 7, 8, 9, 10} };
-  //print1D(array1D);
-  //print2D(Array2D);
-  int size = 10;
-
-  //int result[][] = diagonal(size);
-  //print2D(result);
-  
-  int resultTriangle[][] = createTriangle(size);
-  print2D(resultTriangle);
+  int size = 3;
+  int resultSDiagonal[][] = test(size);
+  print2D(resultSDiagonal);
+  print("---------------------------------------------- \n");
+  int[] flat = flatten_2(resultSDiagonal);
+  print1D(flat);
 }
-
-
 
 //Displaying a 1D Array
 void print1D(int[] array) {
   for (int i = 0; i < array.length; i++) {
-    println(array[i]);
+    print(array[i], " ");
   }
 }
 
@@ -31,35 +24,40 @@ void print2D(int[][] array) {
     println();
   }
 }
-
-// Creating a matrix with 1s in diagonal
-int[][] diagonal(int size) {
+// Creating a matrix with super diagonals
+int[][] test(int size) {
   int[][] array = new int[size][size];
-
   for (int i = 0; i < array.length; i++) {
     for (int j = 0; j < array[i].length; j++) {
-      if (i == j) {
-        array[i][j] = 1;
+      array[i][j] = i - j;
+
+      if (i < j) {
+        array[i][j] = j - i;
       }
     }
-    println();
   }
 
   return array;
 }
 
-// Creating a matrix with 1s in triangle
-int[][] createTriangle(int size) {
-  int[][] array = new int[size][size];
+int[] flatten_2(int[][] tab) {
+ int size = calculate_nb_elements(tab);
+ int[] result = new int[size];
+ int i =0; // index dans result
+ for(int j=0; j < tab.length; j++){ // parcours chaque ligne
+   for(int k=0; k < tab[j].length; k++){
+     result[i] = tab[j][k];
+     i++;
+   }
+ }
+ return result;
+}
 
-  for (int i = 0; i < array.length; i++) {
-    for (int j = 0; j < array[i].length; j++) {
-      if (i <= j ) {
-        array[i][j] = 1;
-      }
-    }
-    println();
-  }
-
-  return array;
+int calculate_nb_elements(int[][] tab){
+  int numberOfElements = 0;
+   for(int i =0; i< tab.length; i++){
+    for(int k = 0; k < tab[i].length; k++)
+     numberOfElements++;
+   }
+  return numberOfElements;  
 }
